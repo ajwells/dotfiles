@@ -27,7 +27,7 @@ filetype plugin indent on    " required
 set laststatus=2
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
-let g:airline_theme='quantum'
+let g:airline_theme = 'quantum'
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -66,13 +66,29 @@ set ruler					" Turn on the ruler
 set showmatch			" Show matching parenthesis
 set lazyredraw		" Don't update the display while executing macros
 set showcmd				" Show command
-set mouse=a				" Enable mouse if terminal allows
 set scrolloff=5		" Keep lines off the edge of the screen
 set nowrap				" Don't wrap lines
 syntax on					" Syntax highlighting
 set autoread			" Auto reload files changed outside of Vim
 
+if has("autocmd")	" Jump to the last position in file
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"Mouse
+set mouse=a				" Enable mouse if terminal allows
+"set ttymouse=xterm
+" Scrolling for ConEmu
+inoremap <Esc>[62~ <C-X><C-E> 
+inoremap <Esc>[63~ <C-X><C-Y> 
+nnoremap <Esc>[62~ <C-E> 
+nnoremap <Esc>[63~ <C-Y> 
+
 " Colors
+set t_Co=256
+set term=xterm
+let &t_AB="\e[48;5;%dm"	" For ConEmu
+let &t_AF="\e[38;5;%dm"	" For ConEmu
 set background=dark
 colorscheme quantum
 
